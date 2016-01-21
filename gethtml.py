@@ -22,5 +22,5 @@ for arg in sys.argv[1:]:
 
     licensehtml = '<a href="https://creativecommons.org/">' + licensehtml + '</a>'    
     
-    print '<a href=https://commons.wikimedia.org/wiki/File:' + filename + '>Photo</a> by ' + authorhtml + licensehtml
+    print '<a href="https://commons.wikimedia.org/wiki/File:' + filename + '">Photo</a> by ' + authorhtml + licensehtml
     print '\n'
