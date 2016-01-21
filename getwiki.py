@@ -2,7 +2,7 @@ import os
 import sys
 import urllib
 import xml.etree.ElementTree as ET
-
+from BeautifulSoup import BeautifulSoup
 
 for arg in sys.argv[1:]:
     filename = arg
@@ -19,8 +19,12 @@ for arg in sys.argv[1:]:
 
     for licenses in root.findall('licenses'):
         licensehtml = licenses.find('license').find('name').text
-
-    licensehtml = '<a href="https://creativecommons.org/">' + licensehtml + '</a>'    
+    
+    soup = BeautifulSoup(authorhtml)
+    
+    authorhtml = '[[' + soup.a['title'] + '|' + soup.a.text + ']]'
+    
+    licensehtml = '[ ' + licensehtml + ']'    
     
     print '[[File:' + filename + '|Photo]] by ' + authorhtml + licensehtml
     print '\n'
