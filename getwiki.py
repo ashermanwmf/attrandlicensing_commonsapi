@@ -44,7 +44,7 @@ def is_html(text):
 for arg in sys.argv[1:]:
     filename = arg
 
-    requestURL = 'https://tools.wmflabs.org/magnus-toolserver/commonsapi.php?image=' + filename
+    requestURL = 'https://tools.wmflabs.org/magnus-toolserver/commonsapi.php?image=' + filename + '&forcehtml'
 
     root = ET.parse(urllib.urlopen(requestURL)).getroot()
 
@@ -87,5 +87,5 @@ for arg in sys.argv[1:]:
 #        licensehtml = cc_4_0_SA + licensehtml + ']'
 
     
-    print '[[File:' + filename + '|Photo]] by ' + authorhtml + ' ' + licensehtml
+    print '[[' + filename + '|Photo]] by ' + authorhtml + ' ' + licensehtml
     print '\n'
