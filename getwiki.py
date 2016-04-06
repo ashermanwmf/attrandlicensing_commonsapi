@@ -1,3 +1,16 @@
+#########################################################################
+#   How this works                              
+# 1. This script allows for multiple arguments to print mulitple files
+#    attributions and licensing. There is NO added link for creative commons licensing.
+# ex: $ python getwiki.py File:Dog.png
+# 2. The above example returns (still needs appropriate licensing with link):
+#       [[:File:Dog.png|Photo]] by [http://commons.wikimedia.org/wiki/User:Loupeznik Loupeznik], CC-BY-SA-3.0,2.5,2.0,1.0 
+# 3. othe possible example:
+#   ex: $ python getwiki.py File:Dog.png File:Cat.jpg
+# (choose gethtml.py to print the file info in html format)
+# (one packages: BeautifulSoup)
+#########################################################################
+
 import os
 import sys
 import urllib
@@ -50,8 +63,9 @@ for arg in sys.argv[1:]:
 
     licensehtml= ''
     authorhtml = ''
-
-    print authorhtml
+    soup = ''
+    author_link = ''
+    author_name = ''
     
     if is_html(authorhtml) is 'True':
         soup = BeautifulSoup(authorhtml)
@@ -61,6 +75,9 @@ for arg in sys.argv[1:]:
     else:
         for author in root.iter('author'):
             authorhtml = author.text
+            soup = BeautifulSoup(authorhtml)
+            author_link = soup.a['href']
+            author_name = soup.a.text
         
     for licenses in root.findall('licenses'):
         licensehtml = licenses.find('license').find('name').text
@@ -87,5 +104,5 @@ for arg in sys.argv[1:]:
 #        licensehtml = cc_4_0_SA + licensehtml + ']'
 
     
-    print '[[' + filename + '|Photo]] by ' + authorhtml + ' ' + licensehtml
+    print '[[:' + filename + '|Photo]] by [' + author_link + ' ' + author_name + '], ' + licensehtml
     print '\n'
