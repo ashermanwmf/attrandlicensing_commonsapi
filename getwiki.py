@@ -41,18 +41,6 @@ def is_html(text):
 
     return True if parser.elements.intersection(elements) else False
 
-##licensing links (not always in the xml)
-#cc0_1 = ', freely licesned under [https://creativecommons.org/publicdomain/zero/1.0/ '
-#cc_1_0 = ', freely licensed under [http://creativecommons.org/licenses/by/1.0/ '
-#cc_2_0 = ', freely licensed under [http://creativecommons.org/licenses/by/2.0/ '
-#cc_2_5 = ', freely licensed under [http://creativecommons.org/licenses/by/2.5/ '
-#cc_3_0 = ', freely licensed under [http://creativecommons.org/licenses/by/3.0/ '
-#cc_4_0 = ', freely licensed under [http://creativecommons.org/licenses/by/4.0/ '
-#cc_1_0_SA = ', freely licensed under [http://creativecommons.org/licenses/by-sa/1.0/ '
-#cc_2_0_SA = ', freely licensed under [http://creativecommons.org/licenses/by-sa/2.0/ '
-#cc_2_5_SA = ', freely licensed under [http://creativecommons.org/licenses/by-sa/2.5/ '
-#cc_3_0_SA = ', freely licensed under [http://creativecommons.org/licenses/by-sa/3.0/ '
-#cc_4_0_SA = ', freely licensed under [http://creativecommons.org/licenses/by-sa/4.0/ '
 
 for arg in sys.argv[1:]:
     filename = arg
@@ -81,28 +69,6 @@ for arg in sys.argv[1:]:
         
     for licenses in root.findall('licenses'):
         licensehtml = licenses.find('license').find('name').text
-    
-#    if licensehtml == 'CC-Zero':
-#        licensehtml = cc0_1 + licensehtml + ']'
-#    elif licensehtml == 'CC-PD-Mark':
-#        licensehtml = ' ' + licensehtml
-#    elif licensehtml == 'CC-BY-1.0':
-#        licensehtml = cc_1_0 + licensehtml + ']'    
-#    elif licensehtml == 'CC-BY-2.0':
-#        licensehtml = cc_2_0 + licensehtml + ']'
-#    elif licensehtml == 'CC-BY-2.5':
-#        licensehtml = cc_2_5 + licensehtml + ']'
-#    elif licensehtml is 'CC-BY-SA-1.0-migrated' or 'CC-BY-SA-1.0':
-#        licensehtml = cc_1_0_SA + licensehtml + ']'
-#    elif licensehtml is 'CC-BY-SA-2.0-migrated' or 'CC-BY-SA-2.0':
-#        licensehtml = cc_2_0_SA + licensehtml + ']'
-#    elif licensehtml is 'CC-BY-SA-2.5-migrated' or 'CC-BY-SA-2.5':
-#        licensehtml = cc_2_5_SA + licensehtml + ']'
-#    elif licensehtml is 'CC-BY-SA-3.0-migrated' or 'CC-BY-SA-3.0':
-#        licensehtml = cc_3_0_SA + licensehtml + ']'
-#    elif licensehtml is 'CC-BY-SA-4.0-migrated' or 'CC-BY-SA-4.0':
-#        licensehtml = cc_4_0_SA + licensehtml + ']'
-
     
     print '[[:' + filename + '|Photo]] by [' + author_link + ' ' + author_name + '], ' + licensehtml
     print '\n'
