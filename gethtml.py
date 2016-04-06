@@ -1,3 +1,18 @@
+#########################################################################
+#   How this works                              
+# 1. This script allows for multiple arguments to print mulitple files
+#    attributions and licensing. There is NO added link for creative commons licensing.
+# ex: $ python gethtml.py File:Dog.png
+# 2. The above example returns (still needs appropriate licensing with link):
+#       <a style="color:white;text-decoration:underline;" href="https://commons.wikimedia.org/wiki/File:Dog.png">Photo</a> 
+#       by <a href="http://commons.wikimedia.org/wiki/User:Loupeznik" title="User:Loupeznik" style="color:white;text-decoration:underline;">Loupeznik</a>, 
+#       <a style="color:white;text-decoration:underline;" href="https://creativecommons.org/">CC-BY-SA-3.0,2.5,2.0,1.0</a> 
+# 3. othe possible example:
+#   ex: $ python gethtml.py File:Dog.png File:Cat.jpg
+# (choose getwiki.py to print the file info in wiki format)
+# (one packages: BeautifulSoup)
+#########################################################################
+
 import os
 import sys
 import re
