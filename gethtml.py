@@ -11,6 +11,7 @@
 #   ex: $ python gethtml.py File:Dog.png File:Cat.jpg
 # (choose getwiki.py to print the file info in wiki format)
 # (one packages: BeautifulSoup)
+# recently updated to add in licensing url
 #########################################################################
 
 import os
@@ -30,18 +31,31 @@ for arg in sys.argv[1:]:
     root = ET.parse(urllib.urlopen(requestURL)).getroot()
 
     licensehtml= ''
+    licenseurlopen = ''
+    licenseurlclose = ''
     authorhtml = ''
     soup = ''
 
     for author in root.iter('author'):
         authorhtml = author.text
         soup = BeautifulSoup(authorhtml)
-        soup.a['style'] = 'color:white;text-decoration:underline;'
+        # check soup for a link to add styling or just use the text
+        if "</a>" in soup:
+            soup.a['style'] = 'color:white;text-decoration:underline;'
+        else:
+            soup = soup
 
     for licenses in root.findall('licenses'):
         licensehtml = licenses.find('license').find('name').text
+        # find the license url, if it exists then add it to the licenseurl variable
+        if licenses.find('license').find('license_info_url') is None:
+            licenseurlopen = ''
+            licenseurlclose = ''
+        else:
+            licenseurlopen = '<a style="color:white;text-decoration:underline;" href="'+ licenses.find('license').find('license_info_url').text + '">'
+            licenseurlclose = '</a>'
 
-    licensehtml = '<a style="color:white;text-decoration:underline;" href="https://creativecommons.org/">' + licensehtml + '</a>'    
+    licensehtml = licenseurlopen + licensehtml + licenseurlclose    
 
     print '<a style="color:white;text-decoration:underline;" href="https://commons.wikimedia.org/wiki/' + filename + '">Photo</a> by ' + str(soup) + ', ' + licensehtml
     print '\n'    
